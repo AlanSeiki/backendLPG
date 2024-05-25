@@ -1,14 +1,14 @@
 ## Descrição
 
-Aplicativo de finanças pessoais.
+Backend para um aplicativo de finanças pessoais Little Pig Golden.
 
 ## Tecnologias
-
-Nest.js
-TypeScript
-TypeOrm
-PostgresSQL
-
+```bash
+ $ Nest.js
+ $ TypeScript
+ $ TypeOrm
+ $ PostgreSQL
+```
 ## Instalação
 
 ```bash
