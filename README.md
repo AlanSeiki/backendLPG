@@ -29,10 +29,10 @@ $ npm run start
 Fala com o Peterson
 
 ## Autores
-
-Alan Seiki
-Peterson Nunes
-
+```bash
+$ Alan Seiki
+$ Peterson Nunes
+```
 ## License
 
 By (LICENSE) LPG.enterprise.
