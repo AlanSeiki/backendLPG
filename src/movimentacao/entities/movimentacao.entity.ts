@@ -13,8 +13,7 @@ export class Movimentacao {
   @Column()
   data: Date;
 
-  @Column({nullable: true})
-  @ManyToOne(() => Conta, (conta) => conta.id)
+  @ManyToOne(() => Conta, (conta) => conta.id, { nullable: true })
   @JoinColumn()
   conta: number;
 
@@ -24,8 +23,7 @@ export class Movimentacao {
   @Column()
   icone: string;
 
-  @Column({nullable: true})
-  @ManyToOne(() => Meta, (meta) => meta.id)
+  @ManyToOne(() => Meta, (meta) => meta.id, { nullable: true })
   @JoinColumn()
   meta: number;
 
