@@ -1,6 +1,7 @@
 import { Conta } from 'src/contas/entities/conta.entity';
 import { Meta } from 'src/metas/entities/meta.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { TipoMovimentacao } from '../dto/create-movimentacao.dto';
 
 @Entity()
 export class Movimentacao {
@@ -28,5 +29,5 @@ export class Movimentacao {
   meta: number;
 
   @Column()
-  tipo: string;
+  tipo: TipoMovimentacao;
 }

@@ -26,8 +26,11 @@ export class MovimentacaoService {
   }
 
   async findAll(page: number = 1, limit: number = 10): Promise<PaginatedResultDto<MovimentacaoDto>> {
+    const { LessThanOrEqual } = require('typeorm');
+
     const paginatedResult = await this.paginationService.paginate(this.movimentacaoRepository, page, limit, {
-      order: { data: 'ASC' }
+      where: { data: LessThanOrEqual(new Date()) },
+      order: { data: 'DESC' }
     });
 
     return paginatedResult
