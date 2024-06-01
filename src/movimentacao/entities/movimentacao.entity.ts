@@ -3,33 +3,33 @@ import { ContaEntity } from 'src/contas/entities/conta.entity';
 import {  MetaEntity } from 'src/metas/entities/meta.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Movimentacao {
+@Entity({name: "movimentacao"})
+export class MovimentacaoEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
+  @Column({type: 'character varying', nullable: false})
   descricao: string;
 
-  @Column()
+  @Column({type: 'timestamptz', nullable: false})
   data: Date;
 
-  @Column({nullable: true})
+  @Column({type: 'integer',nullable: true})
   @ManyToOne(() => ContaEntity, (conta) => conta.id)
   @JoinColumn()
-  conta: number;
+  conta: ContaEntity;
 
-  @Column()
+  @Column({type: 'integer', nullable: false})
   valor: number;
 
-  @Column()
+  @Column({type: 'character varying', nullable: false})
   icone: string;
 
-  @Column({nullable: true})
+  @Column({type: 'integer', nullable: true})
   @ManyToOne(() => MetaEntity, (meta) => meta.id)
   @JoinColumn()
-  meta: number;
+  meta: MetaEntity;
 
-  @Column()
+  @Column({type: 'character varying', nullable: false})
   tipo: string;
 }

@@ -8,7 +8,7 @@ export class MetasController {
   constructor(private readonly metasService: MetasService) {}
 
   @Post()
-  create(@Body() meta: CreateMetaDto) {
+  create(@Body() meta: CreateMetaDto): Promise<string | Error>  {
     return this.metasService.create(meta);
   }
 

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { MovimentacaoEntity } from 'src/movimentacao/entities/movimentacao.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({name: 'meta'})
 export class MetaEntity {
@@ -25,4 +26,7 @@ export class MetaEntity {
 
     @Column({ default: true })
     ativo: boolean;
+
+    @OneToMany(() => MovimentacaoEntity, (movimentacao) => movimentacao.meta)
+    movimentacao: MovimentacaoEntity
 }

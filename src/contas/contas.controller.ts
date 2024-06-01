@@ -8,7 +8,7 @@ export class ContasController {
   constructor(private readonly contasService: ContasService) { }
 
   @Post()
-  async create(@Body() conta: CreateContaDto) {
+  async create(@Body() conta: CreateContaDto): Promise<string | Error> {
     return await this.contasService.create(conta);
   }
 

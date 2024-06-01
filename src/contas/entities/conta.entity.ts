@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { MovimentacaoEntity } from 'src/movimentacao/entities/movimentacao.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({name: 'conta'})
 export class ContaEntity {
@@ -19,4 +20,7 @@ export class ContaEntity {
 
   @Column({type: 'character varying', nullable: false})
   icone: string;
+
+  @OneToMany(() => MovimentacaoEntity, (movimentacao) => movimentacao.conta)
+  movimentacao: MovimentacaoEntity;
 }
