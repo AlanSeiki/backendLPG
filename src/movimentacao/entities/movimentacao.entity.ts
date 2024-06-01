@@ -1,6 +1,6 @@
 
 import { ContaEntity } from 'src/contas/entities/conta.entity';
-import { Meta } from 'src/metas/entities/meta.entity';
+import {  MetaEntity } from 'src/metas/entities/meta.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -26,7 +26,7 @@ export class Movimentacao {
   icone: string;
 
   @Column({nullable: true})
-  @ManyToOne(() => Meta, (meta) => meta.id)
+  @ManyToOne(() => MetaEntity, (meta) => meta.id)
   @JoinColumn()
   meta: number;
 

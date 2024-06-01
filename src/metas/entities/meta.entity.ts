@@ -1,26 +1,26 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Meta {
+@Entity({name: 'meta'})
+export class MetaEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
   
-    @Column()
+    @Column({type: 'character varying', nullable: false})
     descricao: string;
   
-    @Column()
+    @Column({type: 'timestamp', nullable: false})
     data_inicial: Date;
   
-    @Column()
+    @Column({type: 'timestamp', nullable: false})
     data_final: Date;
   
-    @Column()
+    @Column({type: 'integer', nullable: false})
     valor: number;
 
-    @Column()
+    @Column({type: 'integer', nullable: false})
     valor_mes: number;
   
-    @Column()
+    @Column({type: 'character varying', nullable: false})
     icone: string;
 
     @Column({ default: true })

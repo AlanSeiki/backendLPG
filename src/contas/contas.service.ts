@@ -19,7 +19,7 @@ export class ContasService {
   async create(conta: CreateContaDto): Promise<string | Error> {
     try {
       if (await this.findDesc(conta.descricao)) {
-        throw new Error(`A conta com a decrição ${conta.descricao} já existe`)
+        throw new Error(`A conta com a decrição "${conta.descricao}" já existe`)
       }
 
       await this.contaRepository.save(conta);
@@ -65,7 +65,7 @@ export class ContasService {
       const found = await this.contaRepository.findOne({ where: { id } });
 
       if (!found) {
-        throw new Error(`Conta com não encontada`);
+        throw new Error(`Conta não encontada`);
       }
 
       await this.contaRepository.update(id, conta);
@@ -81,7 +81,7 @@ export class ContasService {
     try {
 
       if (!await this.contaRepository.existsBy({ id })) {
-        throw new Error(`A conta com id ${id} não foi encontrado!`)
+        throw new Error(`A conta com id "${id}" não foi encontrado!`)
       }
 
       await this.contaRepository.delete(id);

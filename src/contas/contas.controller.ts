@@ -5,7 +5,7 @@ import { UpdateContaDto } from './dto/update-conta.dto';
 
 @Controller('contas')
 export class ContasController {
-  constructor(private readonly contasService: ContasService) {}
+  constructor(private readonly contasService: ContasService) { }
 
   @Post()
   async create(@Body() conta: CreateContaDto) {
@@ -13,22 +13,22 @@ export class ContasController {
   }
 
   @Get()
-  async findAll(@Query() params: interfaceConta):Promise<CreateContaDto[]> {
+  async findAll(@Query() params: interfaceConta): Promise<CreateContaDto[]> {
     return await this.contasService.findAll(params);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: number): Promise<CreateContaDto | Error> {
     return await this.contasService.findOne(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() conta: UpdateContaDto) {
+  async update(@Param('id') id: number, @Body() conta: UpdateContaDto): Promise<string | Error> {
     return await this.contasService.update(id, conta);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: number): Promise<string | Error> {
     return await this.contasService.remove(id);
   }
 }
