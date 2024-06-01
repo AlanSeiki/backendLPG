@@ -1,22 +1,22 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Conta {
+@Entity({name: 'conta'})
+export class ContaEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
+  @Column({type: 'character varying', nullable: false})
   descricao: string;
 
-  @Column()
+  @Column({type: 'timestamp', nullable: false})
   data: Date;
 
-  @Column()
+  @Column({type: 'integer', nullable: false})
   parcela: number;
 
-  @Column()
+  @Column({type: 'integer', nullable: false})
   valor: number;
 
-  @Column()
+  @Column({type: 'character varying', nullable: false})
   icone: string;
 }
