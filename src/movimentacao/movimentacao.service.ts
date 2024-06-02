@@ -12,28 +12,18 @@ export class MovimentacaoService {
 
   constructor(
     @InjectRepository(MovimentacaoEntity)
-    private moviRepository: Repository<MovimentacaoEntity>
+    private moviRepository: Repository<MovimentacaoEntity>,
+    private paginationService: PaginationService,
   ) { }
 
   async findDesc(descricao: string): Promise<boolean> {
     return (await this.moviRepository.find({ where: { descricao: descricao } })).length > 0
   }
 
-  async create(movi: CreateMovimentacaoDto): Promise<string | Error> {
+  async create(movi: CreateMovimentacaoDto): Promise<{ message: string } | Error> {
     try {
-      if (await this.findDesc(movi.descricao)) {
-        throw new Error(`Movimentação com a descrição "${movi.descricao}" já existe`);
-      }
-
-      if (
-        (!movi.conta && !movi.meta) || (movi.conta && movi.meta)
-      ) {
-        throw new Error(`Deve ser escolhido apenas meta ou conta`);
-      }
-
-      await this.moviRepository.create(movi);
-
-      return `Movimentação criada com sucesso`
+      await this.moviRepository.save(movi);
+      return { message: 'Movimentação criada com sucesso' };
     } catch (error) {
       throw new HttpException(`Erro ao criar movimentação: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
@@ -53,16 +43,17 @@ export class MovimentacaoService {
       throw new HttpException(`Erro ao buscar movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
-    // async findAll(page: number = 1, limit: number = 10): Promise<PaginatedResultDto<MovimentacaoDto>> {
-  //   const { LessThanOrEqual } = require('typeorm');
 
-  //   const paginatedResult = await this.paginationService.paginate(this.movimentacaoRepository, page, limit, {
-  //     where: { data: LessThanOrEqual(new Date()) },
-  //     order: { data: 'DESC' }
-  //   });
+  async findPaginate(page: number = 1, limit: number = 10): Promise<PaginatedResultDto<CreateMovimentacaoDto>> {
+    const { LessThanOrEqual } = require('typeorm');
 
-  //   return paginatedResult
-  // }
+    const paginatedResult = await this.paginationService.paginate(this.moviRepository, page, limit, {
+      where: { data: LessThanOrEqual(new Date()) },
+      order: { data: 'DESC' }
+    });
+
+    return paginatedResult
+  }
 
   async findOne(id: number): Promise<CreateMovimentacaoDto | Error> {
     try {
@@ -76,7 +67,7 @@ export class MovimentacaoService {
     }
   }
 
-  async update(id: number, movi: UpdateMovimentacaoDto): Promise<string | Error> {
+  async update(id: number, movi: UpdateMovimentacaoDto): Promise<{ message: string }  | Error> {
     try {
       const found = await this.moviRepository.findOne({ where: { id } })
 
@@ -85,7 +76,7 @@ export class MovimentacaoService {
       }
 
       await this.moviRepository.update(id, movi);
-      return `Movimentação atualizada com sucesso`
+      return { message: `Movimentação atualizada com sucesso` }
     } catch (error) {
       throw new HttpException(`Erro ao atualizar Movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
