@@ -9,16 +9,21 @@ export class MovimentacaoController {
   constructor(private readonly movimentacaoService: MovimentacaoService) { }
 
   @Post()
-  async create(@Body() createMovimentacaoDto: MovimentacaoDto): Promise<MovimentacaoDto | Error> {
+  async create(@Body() createMovimentacaoDto: CreateMovimentacaoDto): Promise<string | Error> {
     return await this.movimentacaoService.create(createMovimentacaoDto);
   }
 
+  // @Get()
+  // async findAll(
+  //   @Query('page', new ParseIntPipe({ errorHttpStatusCode: 400 })) page: number = 1,
+  //   @Query('limit', new ParseIntPipe({ errorHttpStatusCode: 400 })) limit: number = 10
+  // ): Promise<PaginatedResultDto<CreateMovimentacaoDto>> {
+  //   return await this.movimentacaoService.findAll(page, limit);
+  // }
+
   @Get()
-  async findAll(
-    @Query('page', new ParseIntPipe({ errorHttpStatusCode: 400 })) page: number = 1,
-    @Query('limit', new ParseIntPipe({ errorHttpStatusCode: 400 })) limit: number = 10
-  ): Promise<PaginatedResultDto<MovimentacaoDto>> {
-    return await this.movimentacaoService.findAll(page, limit);
+  findAll(@Query() params: interfaceMovimentacao): Promise<CreateMovimentacaoDto[]> {
+    return this.movimentacaoService.findAll(params);
   }
 
   @Get(':id')

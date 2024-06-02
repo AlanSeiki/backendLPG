@@ -1,7 +1,7 @@
 
 import { ContaEntity } from 'src/contas/entities/conta.entity';
 import {  MetaEntity } from 'src/metas/entities/meta.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TipoMovimentacao } from '../dto/create-movimentacao.dto';
 
 @Entity({name: "movimentacao"})

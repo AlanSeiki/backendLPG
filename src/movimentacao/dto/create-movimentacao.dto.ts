@@ -1,11 +1,13 @@
 import { IsNotEmpty, IsString, IsPositive, IsEnum, IsNumber, IsDateString } from "class-validator";
+import { ContaEntity } from "src/contas/entities/conta.entity";
+import { MetaEntity } from "src/metas/entities/meta.entity";
 
 export enum TipoMovimentacao {
     DESPESA = 'D',
     RECEITA = 'R',
     LANCAMENTO = 'L'
 }
-export class MovimentacaoDto {
+export class CreateMovimentacaoDto {
     id: number;
 
     @IsString({message: "Campo descricao é do tipo String"})
@@ -17,7 +19,7 @@ export class MovimentacaoDto {
     @IsDateString()
     data: Date;
 
-    conta: number;
+    conta?: ContaEntity;
 
     @IsNotEmpty({message: "Necessário colocar um valor"})
     @IsNumber()
@@ -28,7 +30,7 @@ export class MovimentacaoDto {
     @IsNotEmpty({message: "Necessário selecionar um icone"})
     icone: string;
 
-    meta: number;
+    meta?: MetaEntity;
 
     @IsEnum(TipoMovimentacao, { message: "Tipo de movimentação inválido. Os valores permitidos são: D, M, L." })
     @IsNotEmpty({message: "Necessário selecionar o tipo de movimentação"})
