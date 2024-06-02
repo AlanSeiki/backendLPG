@@ -34,3 +34,12 @@ export class MovimentacaoDto {
     @IsNotEmpty({message: "Necessário selecionar o tipo de movimentação"})
     tipo: TipoMovimentacao;
 }
+export interface interfaceMovimentacao{
+    descricao: string;
+    data: Date;
+    conta: ContaEntity;
+    valor: number;
+    icone: string;
+    meta: MetaEntity;
+    tipo: string;
+}

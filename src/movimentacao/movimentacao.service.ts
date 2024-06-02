@@ -1,6 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { MovimentacaoDto } from './dto/create-movimentacao.dto';
+import { Injectable } from '@nestjs/common';
+import { CreateMovimentacaoDto } from './dto/create-movimentacao.dto';
 import { UpdateMovimentacaoDto } from './dto/update-movimentacao.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MovimentacaoEntity } from './entities/movimentacao.entity';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { Movimentacao } from './entities/movimentacao.entity';
 import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';

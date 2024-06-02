@@ -33,3 +33,12 @@ export class CreateMetaDto {
     @IsBoolean({message: "Campo ativo deve ser do tipo boolean"})
     ativo: boolean;
 }
+export interface interfaceMeta{
+    descricao: string;
+    data_inicial: Date;
+    data_final: Date;
+    valor: number;
+    valor_mes: number;
+    icone: string;
+    ativo: boolean;
+}

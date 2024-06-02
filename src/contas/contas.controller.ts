@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ContasService } from './contas.service';
-import { CreateContaDto } from './dto/create-conta.dto';
+import { CreateContaDto, interfaceConta } from './dto/create-conta.dto';
 import { UpdateContaDto } from './dto/update-conta.dto';
 
 @Controller('contas')
 export class ContasController {
-  constructor(private readonly contasService: ContasService) {}
+  constructor(private readonly contasService: ContasService) { }
 
   @Post()
-  create(@Body() createContaDto: CreateContaDto) {
-    return this.contasService.create(createContaDto);
+  async create(@Body() conta: CreateContaDto): Promise<string | Error> {
+    return await this.contasService.create(conta);
   }
 
   @Get()
-  findAll() {
-    return this.contasService.findAll();
+  async findAll(@Query() params: interfaceConta): Promise<CreateContaDto[]> {
+    return await this.contasService.findAll(params);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.contasService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<CreateContaDto | Error> {
+    return await this.contasService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateContaDto: UpdateContaDto) {
-    return this.contasService.update(+id, updateContaDto);
+  async update(@Param('id') id: number, @Body() conta: UpdateContaDto): Promise<string | Error> {
+    return await this.contasService.update(id, conta);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.contasService.remove(+id);
+  async remove(@Param('id') id: number): Promise<string | Error> {
+    return await this.contasService.remove(id);
   }
 }
