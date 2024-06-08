@@ -5,15 +5,15 @@ import { UpdateMetaDto } from './dto/update-meta.dto';
 
 @Controller('metas')
 export class MetasController {
-  constructor(private readonly metasService: MetasService) {}
+  constructor(private readonly metasService: MetasService) { }
 
   @Post()
-  create(@Body() meta: CreateMetaDto): Promise<string | Error>  {
+  create(@Body() meta: CreateMetaDto): Promise<{ message: string } | Error> {
     return this.metasService.create(meta);
   }
 
   @Get()
-  findAll(@Query() params: interfaceMeta):Promise<CreateMetaDto[]> {
+  findAll(@Query() params: interfaceMeta): Promise<CreateMetaDto[]> {
     return this.metasService.findAll(params);
   }
 
@@ -23,12 +23,12 @@ export class MetasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() meta: UpdateMetaDto): Promise<string | Error> {
+  update(@Param('id') id: number, @Body() meta: UpdateMetaDto): Promise<{ message: string } | Error> {
     return this.metasService.update(id, meta);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<string | Error>  {
+  remove(@Param('id') id: number): Promise<{ message: string } | Error> {
     return this.metasService.remove(id);
   }
 }

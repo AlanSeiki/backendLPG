@@ -11,23 +11,41 @@ export class MetasService {
   constructor(
     @InjectRepository(MetaEntity)
     private metaRepository: Repository<MetaEntity>
-  ) { }
+  ) {}
 
   async findDesc(descricao: string): Promise<boolean> {
     return (await this.metaRepository.find({ where: { descricao: descricao } })).length > 0
   }
 
-  async create(meta: CreateMetaDto): Promise<string | Error> {
+  async create(meta: CreateMetaDto): Promise<{ message: string } | Error> {
     try {
-      if (await this.findDesc(meta.descricao)) {
-        throw new Error(`Meta com a descrição "${meta.descricao}" já esxiste`);
+      const intervaloData =  new Date(meta.data_final).getMonth() - new Date(meta.data_inicial).getMonth()
+
+
+      if (new Date(meta.data_inicial) > new Date(meta.data_final)) {
+        throw new Error(`A data inicial deve ser menor ou igual que a data final`);
       }
 
-      await this.metaRepository.save(meta);
+      if (await this.findDesc(meta.descricao)) {
+        throw new Error(`Meta com a descrição "${meta.descricao}" já esxiste!`);
+      }
 
-      return `Meta "${meta.descricao}" criada com sucesso`
+      if (((new Date(meta.data_final).getFullYear()) - (new Date(meta.data_inicial).getFullYear())) > 2) {
+        throw new Error(`O intervalo das datas deve ser menor que 2 anos!`)
+      }
+
+      if (intervaloData < 1) {
+        throw new Error(`O intervalo das Datas deve ser maior ou igual a 1 mês!`)
+      }
+
+
+      meta.valor_mes = Math.round(meta.valor / intervaloData)
+      
+
+      await this.metaRepository.save(meta);
+      return { message: `Meta criada com sucesso!` }
     } catch (error) {
-      throw new HttpException(`Erro ao criar meta: ${error.message}`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -42,38 +60,38 @@ export class MetasService {
       return await this.metaRepository.find({ where: searchParams });
 
     } catch (error) {
-      throw new HttpException(`Erro ao buscar meta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
   async findOne(id: number): Promise<CreateMetaDto | Error> {
     try {
       if (!await this.metaRepository.existsBy({ id })) {
-        throw new Error(`A meta buscada não existe`);
+        throw new Error(`A meta buscada não existe!`);
       }
 
       return await this.metaRepository.findOne({ where: { id } });
     } catch (error) {
-      throw new HttpException(`Erro ao buscar meta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async update(id: number, meta: UpdateMetaDto): Promise<string | Error> {
+  async update(id: number, meta: UpdateMetaDto): Promise<{ message: string } | Error> {
     try {
       const found = await this.metaRepository.findOne({ where: { id } })
 
       if (!found) {
-        throw new Error(`Meta não encontrada`)
+        throw new Error(`Meta não encontrada!`)
       }
 
       await this.metaRepository.update(id, meta);
-      return `Meta atualizada com sucesso`
+      return { message: `Meta atualizada com sucesso!` }
     } catch (error) {
-      throw new HttpException(`Erro ao atualizar meta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async remove(id: number): Promise<string | Error> {
+  async remove(id: number): Promise<{ message: string } | Error> {
     try {
 
       if (!await this.metaRepository.existsBy({ id })) {
@@ -82,9 +100,9 @@ export class MetasService {
 
       await this.metaRepository.delete(id)
 
-      return `Meta removida com sucesso`
+      return { message: `Meta removida com sucesso` }
     } catch (error) {
-      throw new HttpException(`Erro ao excluir a meta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 }

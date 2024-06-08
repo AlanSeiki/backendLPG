@@ -1,0 +1,574 @@
+{
+	"info": {
+		"_postman_id": "30df6651-b966-4d08-9e87-91ba3a5e6645",
+		"name": "Little Pig Golden",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35980240"
+	},
+	"item": [
+		{
+			"name": "Crud Contas",
+			"item": [
+				{
+					"name": "Criando Contas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Despesa Carro\",\r\n    \"data\":\"2024-06-03\",\r\n    \"parcela\":1,\r\n    \"valor\":100,\r\n    \"icone\":\"foto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/contas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Contas - Regra 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Despesa Mercado\",\r\n    \"data\":\"2001-06-25\",\r\n    \"parcela\":2,\r\n    \"valor\":100,\r\n    \"icone\":\"foto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/contas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Contas - Regra 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Despesa Farmácia\",\r\n    \"data\":\"2049-06-03\",\r\n    \"parcela\":1,\r\n    \"valor\":100,\r\n    \"icone\":\"foto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/contas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Contas - Regra 5",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Despesa Mercado\",\r\n    \"data\":\"2049-06-03\",\r\n    \"parcela\":2,\r\n    \"valor\":100,\r\n    \"icone\":\"foto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/contas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Contas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/contas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Contas by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/contas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizando Contas",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Despesa Mercado\",\r\n    \"data\":\"2024-06-03\",\r\n    \"parcela\":1,\r\n    \"valor\":100,\r\n    \"icone\":\"foto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/contas/7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletando Contas",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/contas/7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contas",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crud Metas",
+			"item": [
+				{
+					"name": "Criando Metas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Pc Gamer\",\r\n    \"data_inicial\":\"2024-06-03\",\r\n    \"data_final\":\"2024-12-03\",\r\n    \"valor\":1000,\r\n    \"icone\":\"foto\",\r\n    \"ativo\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/metas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Metas - Regra 8",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"Pc Gamer\",\r\n    \"data_inicial\":\"2024-06-03\",\r\n    \"data_final\":\"2024-12-03\",\r\n    \"valor\":1000,\r\n    \"icone\":\"foto\",\r\n    \"ativo\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/metas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Metas - Regra 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"PC Gamer\",\r\n    \"data_inicial\":\"2024-06-03\",\r\n    \"data_final\":\"2024-06-03\",\r\n    \"valor\":5000,\r\n    \"icone\":\"foto\",\r\n    \"ativo\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/metas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Metas - Regra 4",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\":\"NotBook Gamer\",\r\n    \"data_inicial\":\"2024-06-03\",\r\n    \"data_final\":\"2030-06-03\",\r\n    \"valor\":5000,\r\n    \"icone\":\"foto\",\r\n    \"ativo\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/metas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Metas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/metas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Metas by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/metas/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizando Metas",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"PC Gamer\",\r\n    \"data_inicial\": \"2024-06-03T03:00:00.000Z\",\r\n    \"data_final\": \"2024-06-03T03:00:00.000Z\",\r\n    \"valor\": 6000,\r\n    \"valor_mes\": 100,\r\n    \"icone\": \"foto\",\r\n    \"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/metas/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletando Metas",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/metas/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"metas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crud Movimentação",
+			"item": [
+				{
+					"name": "Criando Movimentação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Compra Carro\",\r\n    \"data\": \"2024-06-03\",\r\n    \"valor\": 10000,\r\n    \"icone\": \"foto.png\",\r\n    \"tipo\": \"D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movimentacao",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Movimentação - Regra 7",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Compra Carro\",\r\n    \"data\": \"2024-06-03\",\r\n    \"valor\": -10000,\r\n    \"icone\": \"foto.png\",\r\n    \"tipo\": \"D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movimentacao",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criando Movimentação - Regra 6",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Compra Carro\",\r\n    \"data\": \"2024-06-03\",\r\n    \"valor\": 10000,\r\n    \"icone\": \"foto.png\",\r\n    \"tipo\": \"F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movimentacao",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Movimentação",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/movimentacao",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscando Movimentação by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/movimentacao/35",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizando Movimentação",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descricao\": \"Compra Carro\",\r\n    \"data\": \"2024-06-03\",\r\n    \"valor\": 20000,\r\n    \"icone\": \"foto.png\",\r\n    \"tipo\": \"D\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/movimentacao/37",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao",
+								"37"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletando Movimetação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/movimentacao/37",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movimentacao",
+								"37"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

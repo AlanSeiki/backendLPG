@@ -16,18 +16,29 @@ export class ContasService {
     return (await this.contaRepository.find({ where: { descricao: descricao } })).length > 0
   }
 
-  async create(conta: CreateContaDto): Promise<string | Error> {
+  async create(conta: CreateContaDto): Promise<{ message: string } | Error> {
     try {
+      const dataAtual = new Date();
+      dataAtual.setUTCHours(0,0,0,0);
+
       if (await this.findDesc(conta.descricao)) {
-        throw new Error(`A conta com a decrição "${conta.descricao}" já existe`)
+        throw new Error(`A conta com a decrição "${conta.descricao}" já existe`);
+      }
+
+      if (new Date(conta.data) < dataAtual) {
+        throw new Error(`A data não pode ser menor que hoje!`);
+      }
+
+      if (conta.parcela < 2) {
+        throw new Error(`A conta deve ter mais de uma parcela!`)
       }
 
       await this.contaRepository.save(conta);
 
-      return `Conta ${conta.descricao} gerado com sucesso`;
+      return { message: `Conta ${conta.descricao} gerado com sucesso` };
 
     } catch (error) {
-      throw new HttpException(`Erro ao gerar a conta: ${error.message}`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -42,7 +53,7 @@ export class ContasService {
       return await this.contaRepository.find({ where: searchParams });
 
     } catch (error) {
-      throw new HttpException(`Erro ao buscar conta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
@@ -50,34 +61,34 @@ export class ContasService {
     try {
 
       if (!await this.contaRepository.existsBy({ id })) {
-        throw new Error(`A conta buscada não existe`)
+        throw new Error(`A conta buscada não existe!`)
       }
 
       return await this.contaRepository.findOne({ where: { id } })
 
     } catch (error) {
-      throw new HttpException(`Erro ao buscar conta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async update(id: number, conta: UpdateContaDto): Promise<string | Error> {
+  async update(id: number, conta: UpdateContaDto): Promise<{ message: string } | Error> {
     try {
       const found = await this.contaRepository.findOne({ where: { id } });
 
       if (!found) {
-        throw new Error(`Conta não encontada`);
+        throw new Error(`Conta não encontada!`);
       }
 
       await this.contaRepository.update(id, conta);
 
-      return `Conta atualizada com sucesso!`
+      return { message: `Conta atualizada com sucesso!` }
 
     } catch (error) {
-      throw new HttpException(`Erro ao atualizar conta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async remove(id: number): Promise<string | Error> {
+  async remove(id: number): Promise<{ message: string } | Error> {
     try {
 
       if (!await this.contaRepository.existsBy({ id })) {
@@ -86,9 +97,9 @@ export class ContasService {
 
       await this.contaRepository.delete(id);
 
-      return `Conta removida com sucesso`
+      return { message: `Conta removida com sucesso!` }
     } catch (error) {
-      throw new HttpException(`Erro ao excluir a conta: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 }

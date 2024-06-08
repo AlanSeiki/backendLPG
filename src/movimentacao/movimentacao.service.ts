@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateMovimentacaoDto, interfaceMovimentacao } from './dto/create-movimentacao.dto';
 import { UpdateMovimentacaoDto } from './dto/update-movimentacao.dto';
@@ -6,6 +7,7 @@ import { MovimentacaoEntity } from './entities/movimentacao.entity';
 import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { PaginationService } from 'src/paginate.service';
 import { PaginatedResultDto } from 'src/dto-paginate/paginate.dto';
+import { TipoMovimentacao } from './movimentacao.enum';
 
 @Injectable()
 export class MovimentacaoService {
@@ -22,10 +24,16 @@ export class MovimentacaoService {
 
   async create(movi: CreateMovimentacaoDto): Promise<{ message: string } | Error> {
     try {
+
+      if (!(movi.tipo in TipoMovimentacao)) {
+        throw new Error(`O tipo de movimentação deve ser "Lucro", "Despesa" ou "Meta"!`)
+      }
+
+
       await this.moviRepository.save(movi);
-      return { message: 'Movimentação criada com sucesso' };
+      return { message: 'Movimentação criada com sucesso!' };
     } catch (error) {
-      throw new HttpException(`Erro ao criar movimentação: ${error.message}`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -40,7 +48,7 @@ export class MovimentacaoService {
       return await this.moviRepository.find({ where: searchParams });
 
     } catch (error) {
-      throw new HttpException(`Erro ao buscar movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
@@ -57,32 +65,32 @@ export class MovimentacaoService {
 
   async findOne(id: number): Promise<CreateMovimentacaoDto | Error> {
     try {
-      if (!await this.moviRepository.existsBy({ id })) {
-        throw new Error(`A movimentação buscada não existe`);
+      const procuraId = await this.moviRepository.findOne({ where: { id } });
+
+      if (!procuraId) {
+        throw new Error(`A movimentação buscada não existe!`);
       }
 
-      return await this.moviRepository.findOne({ where: { id } });
+      return procuraId
     } catch (error) {
-      throw new HttpException(`Erro ao buscar movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async update(id: number, movi: UpdateMovimentacaoDto): Promise<{ message: string }  | Error> {
+  async update(id: number, movi: UpdateMovimentacaoDto): Promise<{ message: string } | Error> {
     try {
-      const found = await this.moviRepository.findOne({ where: { id } })
-
-      if (!found) {
+      if (!await this.moviRepository.existsBy({ id })) {
         throw new Error(`Movimentação não encontrada`)
       }
 
       await this.moviRepository.update(id, movi);
-      return { message: `Movimentação atualizada com sucesso` }
+      return { message: `Movimentação atualizada com sucesso!` }
     } catch (error) {
-      throw new HttpException(`Erro ao atualizar Movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 
-  async remove(id: number): Promise<string | Error> {
+  async remove(id: number): Promise<{ message: string } | Error> {
     try {
 
       if (!await this.moviRepository.existsBy({ id })) {
@@ -91,9 +99,9 @@ export class MovimentacaoService {
 
       await this.moviRepository.delete(id)
 
-      return `Movimentação removida com sucesso`
+      return { message: `Movimentação removida com sucesso` }
     } catch (error) {
-      throw new HttpException(`Erro ao excluir a movimentação: ${error.message}`, HttpStatus.BAD_REQUEST)
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
     }
   }
 }

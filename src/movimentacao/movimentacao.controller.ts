@@ -9,7 +9,7 @@ export class MovimentacaoController {
   constructor(private readonly movimentacaoService: MovimentacaoService) { }
 
   @Post()
-  async create(@Body() createMovimentacaoDto: CreateMovimentacaoDto): Promise<{ message: string }  | Error> {
+  async create(@Body() createMovimentacaoDto: CreateMovimentacaoDto): Promise<{ message: string } | Error> {
     return await this.movimentacaoService.create(createMovimentacaoDto);
   }
 
@@ -32,12 +32,12 @@ export class MovimentacaoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() movi: UpdateMovimentacaoDto): Promise<{ message: string }  | Error> {
+  update(@Param('id') id: number, @Body() movi: UpdateMovimentacaoDto): Promise<{ message: string } | Error> {
     return this.movimentacaoService.update(id, movi);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<string | Error> {
+  remove(@Param('id') id: number): Promise<{ message: string } | Error> {
     return this.movimentacaoService.remove(id);
   }
 }

@@ -8,7 +8,7 @@ export class ContasController {
   constructor(private readonly contasService: ContasService) { }
 
   @Post()
-  async create(@Body() conta: CreateContaDto): Promise<string | Error> {
+  async create(@Body() conta: CreateContaDto): Promise<{ message: string } | Error> {
     return await this.contasService.create(conta);
   }
 
@@ -23,12 +23,12 @@ export class ContasController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() conta: UpdateContaDto): Promise<string | Error> {
+  async update(@Param('id') id: number, @Body() conta: UpdateContaDto): Promise<{ message: string } | Error> {
     return await this.contasService.update(id, conta);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<string | Error> {
+  async remove(@Param('id') id: number): Promise<{ message: string } | Error> {
     return await this.contasService.remove(id);
   }
 }
