@@ -32,7 +32,7 @@ export class CreateMovimentacaoDto {
 
     meta?: MetaEntity;
 
-    @IsEnum(TipoMovimentacao, { message: "Tipo de movimentação inválido. Os valores permitidos são: D, M, L." })
+    // @IsEnum(TipoMovimentacao, { message: "Tipo de movimentação inválido. Os valores permitidos são: D, M, L." })
     @IsNotEmpty({message: "Necessário selecionar o tipo de movimentação"})
     tipo: TipoMovimentacao;
 }

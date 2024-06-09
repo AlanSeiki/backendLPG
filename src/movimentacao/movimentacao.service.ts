@@ -8,29 +8,36 @@ import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { PaginationService } from 'src/paginate.service';
 import { PaginatedResultDto } from 'src/dto-paginate/paginate.dto';
 import { TipoMovimentacao } from './movimentacao.enum';
+import { CreateContaDto } from 'src/contas/dto/create-conta.dto';
 
 @Injectable()
 export class MovimentacaoService {
 
+
   constructor(
     @InjectRepository(MovimentacaoEntity)
-    private moviRepository: Repository<MovimentacaoEntity>,
-    private paginationService: PaginationService,
+    private readonly moviRepository: Repository<MovimentacaoEntity>,
+    private readonly paginationService: PaginationService,
   ) { }
 
   async findDesc(descricao: string): Promise<boolean> {
     return (await this.moviRepository.find({ where: { descricao: descricao } })).length > 0
   }
 
+  isValidTipoMovimentacao(value: string): value is TipoMovimentacao {
+    return (Object.values(TipoMovimentacao) as string[]).includes(value);
+  }
+
   async create(movi: CreateMovimentacaoDto): Promise<{ message: string } | Error> {
     try {
-
-      if (!(movi.tipo in TipoMovimentacao)) {
+      if (!this.isValidTipoMovimentacao(movi.tipo)) {
         throw new Error(`O tipo de movimentação deve ser "Lucro", "Despesa" ou "Meta"!`)
       }
-
-
-      await this.moviRepository.save(movi);
+      if(movi.tipo == 'M' && !movi.meta) {
+        throw new Error(`Para enserir um tipo meta deve se enviar uma Meta!`)
+      }
+      const movimentacao = await this.moviRepository.create(movi);
+      await this.moviRepository.save(movimentacao);
       return { message: 'Movimentação criada com sucesso!' };
     } catch (error) {
       throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST);
@@ -102,6 +109,16 @@ export class MovimentacaoService {
       return { message: `Movimentação removida com sucesso` }
     } catch (error) {
       throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
+    }
+  }
+
+  async removeContaId(conta: CreateContaDto): Promise<{ message: string } | Error> {
+    try {
+      const { id } = conta;
+      await this.moviRepository.delete({ conta: { id } });
+      return { message: 'Movimentações associadas à conta removidas com sucesso.' };
+    } catch (error) {
+      return new Error('Erro ao remover as movimentações associadas à conta.');
     }
   }
 }

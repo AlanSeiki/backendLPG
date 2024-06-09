@@ -1,0 +1,20 @@
+1° Não pode ter Metas com o mesmo nome.
+
+2° Não pode se criar contas novas com datas menores que a data atual.
+
+3° As parcelas das contas devem ser maiores que 2.
+
+4° O intervalo das datas de metas não pode ser maior que dois anos.
+
+5° Não pode ter Contas com o mesmo nome.
+
+6° O tipo de movimentação (tipo) deve ser um dos valores predefinidos, como 'Meta',
+'Lucro' ou 'Despesa'. Isso garante que o tipo de movimentação seja sempre válido e consistente.
+
+7° O valor de qualquer movimentação deve ser positivo. Isso evita inserções de valores negativos que poderiam distorcer o controle de orçamento.
+
+8° O valor total da meta (valor) deve ser consistente com o valor mensal (valor_mes)
+e o intervalo de tempo entre data_inicial e data_final. Ou seja, o valor total da meta deve ser
+igual ao valor mensal multiplicado pelo número de meses entre data_inicial e data_final.
+
+9° Toda movimentação deve estar associada a uma conta.

@@ -15,9 +15,8 @@ export class MovimentacaoEntity {
   @Column({type: 'timestamptz', nullable: false})
   data: Date;
 
-  @Column({type: 'integer',nullable: true})
-  @ManyToOne(() => ContaEntity, (conta) => conta.id)
-  @JoinColumn()
+  @ManyToOne(() => ContaEntity, (conta) => conta.movimentacao)
+  @JoinColumn({ name: 'conta' })
   conta: ContaEntity;
 
   @Column({type: 'integer', nullable: false})
@@ -26,9 +25,8 @@ export class MovimentacaoEntity {
   @Column({type: 'character varying', nullable: false})
   icone: string;
 
-  @Column({type: 'integer', nullable: true})
-  @ManyToOne(() => MetaEntity, (meta) => meta.id)
-  @JoinColumn()
+  @ManyToOne(() => MetaEntity, (meta) => meta.movimentacao)
+  @JoinColumn({ name: 'meta' })
   meta: MetaEntity;
 
   @Column()

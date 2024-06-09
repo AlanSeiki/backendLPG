@@ -24,6 +24,14 @@ $ npm run typeorm-seed:run
 $ npm run start
 ```
 
+## Regras de Negocio e Colletion postman
+
+```bash
+# development
+$ Dentro do projeto existe um arquivo contendo as regras de negocio: Regras de Negocio.txt
+$ Dentro do projeto existe um arquivo contendo as collection: Little Pig Golden.postman_collection.json
+```
+
 ## Suporte
 
 Fala com o Peterson
