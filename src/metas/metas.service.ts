@@ -17,9 +17,12 @@ export class MetasService {
     return (await this.metaRepository.find({ where: { descricao: descricao } })).length > 0
   }
 
+  intervaloData (meta): number{
+    return new Date(meta.data_final).getMonth() - new Date(meta.data_inicial).getMonth()
+  }
+
   async create(meta: CreateMetaDto): Promise<{ message: string } | Error> {
     try {
-      const intervaloData =  new Date(meta.data_final).getMonth() - new Date(meta.data_inicial).getMonth()
 
 
       if (new Date(meta.data_inicial) > new Date(meta.data_final)) {
@@ -34,12 +37,12 @@ export class MetasService {
         throw new Error(`O intervalo das datas deve ser menor que 2 anos!`)
       }
 
-      if (intervaloData < 1) {
+      if (this.intervaloData(meta) < 1) {
         throw new Error(`O intervalo das Datas deve ser maior ou igual a 1 mês!`)
       }
 
 
-      meta.valor_mes = Math.round(meta.valor / intervaloData)
+      meta.valor_mes = Math.round(meta.valor / this.intervaloData(meta))
       
 
       await this.metaRepository.save(meta);
@@ -91,13 +94,16 @@ export class MetasService {
 
   async update(id: number, meta: UpdateMetaDto): Promise<{ message: string } | Error> {
     try {
+
       const found = await this.metaRepository.findOne({ where: { id } })
 
       if (!found) {
         throw new Error(`Meta não encontrada!`)
       }
+      meta.valor_mes = Math.round(meta.valor / this.intervaloData(meta))
 
       await this.metaRepository.update(id, meta);
+
       return { message: `Meta atualizada com sucesso!` }
     } catch (error) {
       throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
