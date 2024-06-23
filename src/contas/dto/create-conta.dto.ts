@@ -1,7 +1,7 @@
 import { IsDateString, IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 
 export class CreateContaDto {
-    id: number;
+    id?: number;
 
     @IsString()
     @IsNotEmpty({message: 'Digíte uma descrição para criar a conta!'})

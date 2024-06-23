@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PaginationService } from './paginate.service';
 import { MovimentacaoModule } from './movimentacao/movimentacao.module';
 import { ContasModule } from './contas/contas.module';
 import { MetasModule } from './metas/metas.module';

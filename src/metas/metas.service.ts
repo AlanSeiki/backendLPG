@@ -76,6 +76,19 @@ export class MetasService {
     }
   }
 
+  async findOneEntity(id: number): Promise<MetaEntity> {
+    try {
+      if (!await this.metaRepository.existsBy({ id })) {
+        throw new Error(`A meta buscada não existe!`);
+      }
+
+      return await this.metaRepository.findOne({ where: { id } });
+    } catch (error) {
+      throw new HttpException(`Erro: ${error.message}`, HttpStatus.BAD_REQUEST)
+    }
+  }
+
+
   async update(id: number, meta: UpdateMetaDto): Promise<{ message: string } | Error> {
     try {
       const found = await this.metaRepository.findOne({ where: { id } })

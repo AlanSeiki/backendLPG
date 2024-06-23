@@ -10,7 +10,7 @@ export class CreateTable1716665399851 implements MigrationInterface {
                 "descricao" character varying NOT NULL, 
                 "data" TIMESTAMP NOT NULL, 
                 "parcela" integer NOT NULL, 
-                "valor" integer NOT NULL, 
+                "valor" float NOT NULL, 
                 "icone" character varying NOT NULL)`
         );
         await queryRunner.query(`
@@ -19,8 +19,8 @@ export class CreateTable1716665399851 implements MigrationInterface {
                 "descricao" character varying NOT NULL, 
                 "data_inicial" TIMESTAMP NOT NULL,
                 "data_final" TIMESTAMP NOT NULL,
-                "valor" integer NOT NULL, 
-                "valor_mes" integer NOT NULL, 
+                "valor" float NOT NULL, 
+                "valor_mes" float NOT NULL, 
                 "icone" character varying NOT NULL, 
                 "ativo" boolean NOT NULL DEFAULT true)`
         );
@@ -30,7 +30,7 @@ export class CreateTable1716665399851 implements MigrationInterface {
                 "descricao" character varying NOT NULL, 
                 "data" TIMESTAMP NOT NULL, 
                 "conta" integer, 
-                "valor" integer NOT NULL, 
+                "valor" float NOT NULL, 
                 "icone" character varying NOT NULL, 
                 "meta" integer, 
                 "tipo" character varying NOT NULL, 

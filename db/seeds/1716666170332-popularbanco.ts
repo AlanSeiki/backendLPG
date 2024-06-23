@@ -58,21 +58,11 @@ export class Popularbanco1716666170332 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            DELETE FROM "movimentacao" WHERE "descricao" IN (
-            'Pagamento Energia Janeiro', 'Pagamento Energia Fevereiro', 'Pagamento Energia Março', 'Pagamento Energia Abril',
-            'Pagamento Energia Maio', 'Pagamento Energia Junho', 'Pagamento Energia Julho', 'Pagamento Energia Agosto',
-            'Pagamento Energia Setembro', 'Pagamento Energia Outubro', 'Pagamento Energia Novembro', 'Pagamento Energia Dezembro',
-            'Pagamento Água Janeiro', 'Pagamento Água Fevereiro', 'Pagamento Água Março', 'Pagamento Água Abril',
-            'Pagamento Água Maio', 'Pagamento Água Junho', 'Economia Viagem Janeiro', 'Economia Viagem Fevereiro',
-            'Economia Viagem Março', 'Economia Viagem Abril', 'Economia Viagem Maio', 'Economia Viagem Junho',
-            'Economia Viagem Julho', 'Economia Viagem Agosto', 'Economia Viagem Setembro', 'Economia Viagem Outubro',
-            'Economia Viagem Novembro', 'Economia Viagem Dezembro', 'Fundo Emergência Janeiro', 'Fundo Emergência Fevereiro',
-            'Fundo Emergência Março', 'Fundo Emergência Abril', 'Fundo Emergência Maio', 'Fundo Emergência Junho'
-            );
+            DELETE FROM "movimentacao";
             
-            DELETE FROM "meta" WHERE "descricao" IN ('Economizar para Viagem', 'Fundo de Emergência');
+            DELETE FROM "meta";
     
-            DELETE FROM "conta" WHERE "descricao" IN ('Conta de Energia', 'Conta de Água');`
+            DELETE FROM "conta";`
         );
     }
 

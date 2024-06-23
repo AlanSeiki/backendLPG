@@ -4,6 +4,7 @@ import { ContasController } from './contas.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ContaEntity } from './entities/conta.entity';
 import { MovimentacaoModule } from 'src/movimentacao/movimentacao.module';
+import { PaginationService } from 'src/paginate.service';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { MovimentacaoModule } from 'src/movimentacao/movimentacao.module';
     MovimentacaoModule
   ],
   controllers: [ContasController],
-  providers: [ContasService,],
+  providers: [ContasService,PaginationService],
 })
 export class ContasModule {}

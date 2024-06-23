@@ -6,13 +6,16 @@ import { ContaEntity } from './entities/conta.entity';
 import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { MovimentacaoService } from 'src/movimentacao/movimentacao.service';
 import { CreateMovimentacaoDto, TipoMovimentacao } from 'src/movimentacao/dto/create-movimentacao.dto';
+import { PaginatedResultDto } from 'src/dto-paginate/paginate.dto';
+import { PaginationService } from 'src/paginate.service';
 
 @Injectable()
 export class ContasService {
   constructor(
     @InjectRepository(ContaEntity)
     private contaRepository: Repository<ContaEntity>,
-    private movimentacaoService: MovimentacaoService
+    private movimentacaoService: MovimentacaoService,
+    private readonly paginationService: PaginationService,
   ) { }
 
   async findDesc(descricao: string): Promise<boolean> {
@@ -60,6 +63,15 @@ export class ContasService {
     }
   }
 
+  async findPaginate(page: number = 1, limit: number = 10): Promise<PaginatedResultDto<CreateContaDto>> {
+
+    const paginatedResult = await this.paginationService.paginate(this.contaRepository, page, limit, {
+      order: { descricao: 'DESC' }
+    });
+
+    return paginatedResult
+  }
+
   async findOne(id: number): Promise<CreateContaDto | Error> {
     try {
 
@@ -81,8 +93,10 @@ export class ContasService {
       if (!found) {
         throw new Error(`Conta não encontada!`);
       }
-      this.updateConta(found)
+
       await this.contaRepository.update(id, conta);
+      const contaAtualizada = await this.contaRepository.findOne({ where: { id } });
+      this.updateConta(contaAtualizada);
 
       return { message: `Conta atualizada com sucesso!` }
 
